@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
-    logInLink: {
+    Link: {
         width: '100%',
         textDecoration: 'none',
         textAlign: 'center',
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     errorText: {
         color: 'red',
         textAlign: 'center'
-      },
+      }
 }));
 
 
@@ -142,7 +142,7 @@ function SignUpComponent(){
 
 
     return(
-       <Container component = 'main' maxWidth = 'xs'>
+       <Container className = {classes.main} component = 'main' maxWidth = 'xs'>
            <CssBaseline />
            <div className={classes.paper}>
             <Typography component = 'h1' variant = 'h5'>
@@ -180,7 +180,7 @@ function SignUpComponent(){
                 
                 </form>
                 <Typography component='h5' variant='h6' className={classes.hasAccountHeader}>Already Have An Account?</Typography>
-                <Link className={classes.logInLink} to='/login' >Log In Here</Link>
+                <Link className={classes.Link} to='/login' >Log In Here</Link>
            </div>
        </Container>
     )
