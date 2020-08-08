@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Send from '@material-ui/icons/Send';
-import { Container } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({

@@ -2,12 +2,9 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper'
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -76,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
 
 function LoginComponent(){
     const classes = useStyles();
-    const database = firebase.firestore();
     const history = useHistory();
 
 

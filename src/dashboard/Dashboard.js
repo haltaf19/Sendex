@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import ChatListComponent from '../ChatList/ChatList'
-import { withStyles } from '@material-ui/core/styles';
+import NewChatComponent from '../NewChat/NewChat'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import ChatViewComponent from "../viewchat/ChatView"
 import ChatTextBoxComponent from '../ChatTextBox/ChatTextBox'
 import Button from '@material-ui/core/Button';
+import { Container } from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const firebase = require('firebase')
 
@@ -21,13 +24,18 @@ const useStyles = makeStyles((theme) => ({
         height: '35px',
         boxShadow: '0px 0px 2px black',
         color: 'white'
-      }
+      },
+    loading: {
+        display:'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '25%',
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+      },
     }));
-
-    function useForceUpdate(){
-        const [value, setValue] = useState(0); // integer state
-        return () => setValue(value => ++value); // update the state to force render
-    }
 
 export default function DashboardComponent(){
     const history = useHistory();
@@ -40,18 +48,15 @@ export default function DashboardComponent(){
     const [changed, setChanged] = useState('')
     const [documentQueryKey, setDocumentQueryKey] = useState('')
 
-
-    const forceUpdate = useForceUpdate();
-
-    
-
     function createNewChat(){
         setNewChatFormVisible(true)
         setSelectedChat(null)
     }
 
+
     function selectChat(chatIndex){
         setSelectedChat(chatIndex);
+        setNewChatFormVisible(false)
         if(!documentQueryKey) return
         messageRead();
     }
@@ -74,7 +79,8 @@ export default function DashboardComponent(){
     }
 
     function submitMesage(message){
-        const documentQueryKey = builddocumentQueryKey(chats[selectedChat].users.filter(user => user !== email)[0]);
+        if(!chats[selectedChat])return;
+        const documentQueryKey = builddocumentQueryKey(chats[selectedChat].users.filter(user => user !== email)[0])
         firebase.firestore()
         .collection('chats')
         .doc(documentQueryKey)
@@ -91,16 +97,34 @@ export default function DashboardComponent(){
 
     
     function messageRead(){ 
-        forceUpdate();      
         if(!documentQueryKey) return;  
         if(chatClickedNotBySender(selectedChat)){
-            console.log("ThiS SHIT RAN")
             firebase.firestore().collection('chats').doc(documentQueryKey).update({ recieverHasRead: true})
         } else {
-            console.log("clicked message")
+            return;
         }
+    }
 
+    async function goToChat(docKey, message){
+        const usersInChat = docKey.split(':')
+        const chat = chats.find(chat => usersInChat.every(user => chat.users.includes(user)))
+        setNewChatFormVisible(false);
+        await setSelectedChat(chats.indexOf(chat))
+        submitMesage(message)
+    }
 
+    async function newChatSubmit(chatObj){
+        const docKey = builddocumentQueryKey(chatObj.sendTo)
+        await firebase.firestore().collection('chats').doc(docKey).set({
+            recieverHasRead: false,
+            users: [email, chatObj.sendTo],
+            messages: [{
+                message: chatObj.message,
+                sender: email
+            }]
+        })
+        setNewChatFormVisible(false)
+        setSelectedChat(chats.length - 1)
     }
 
     function chatClickedNotBySender(chatIndex){
@@ -129,7 +153,9 @@ export default function DashboardComponent(){
     },[changed]); 
 
 
+    if(email && chats){
     return(
+        
         <>
         <ChatListComponent history={history} 
         newChatButtonFn={createNewChat} 
@@ -143,7 +169,18 @@ export default function DashboardComponent(){
         {
             selectedChat !== null && !newChatFormVisible ? <ChatTextBoxComponent messageReadFn = {messageRead} sendMessagefn={submitMesage} /> : null
         }
+        {
+            newChatFormVisible ? <NewChatComponent newChatSubmitFn={newChatSubmit} goToChatFn={goToChat}/> : null
+        }
         <Button onClick={signout} className = {classes.signOutBtn} variant = 'contained' fullWidth color='primary'>Sign Out</Button>
         </>
     )
+    } else{
+        return(
+            <Backdrop className={classes.backdrop}>
+                <CircularProgress color="inherit" className={classes.loading}/>
+            </Backdrop>
+            
+        );
+    }
 }
