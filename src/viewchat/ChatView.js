@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '20px',
         boxSizing: 'border-box',
         wordWrap: 'break-word',
-        boxShadow: '0px 0px 0.5px black',
         marginTop: '10px',
         backgroundColor: 'rgba(211,211,211,0.2)',
         color: 'black',
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
         clear: 'both',
         padding: '10px',
         boxSizing: 'border-box',
-        boxShadow: '0px 0px 1px black',
         wordWrap: 'break-word',
         marginTop: '10px',
         backgroundColor: 'rgba(64,64,64,0.1)',
@@ -78,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         if(chat === undefined){       
             return(
                 <Container className={classes.content} id='chatview-container'>
-
+                    
                 </Container>
             )
         } else {

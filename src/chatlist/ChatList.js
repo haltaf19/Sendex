@@ -46,13 +46,17 @@ const useStyles = makeStyles((theme) => ({
 
 function ChatListComponent(props){
     const classes = useStyles();
-
+    
     function newChat(){
         console.log("new chat button clicked")
     }
     
     function selectChat(index){
         props.selectChatfn(index)
+    }
+
+    function userIsSender(chat){
+       return chat.messages[chat.messages.length - 1].sender == props.userEmail
     }
 
     if(props.chats.length > 0){
@@ -83,6 +87,12 @@ function ChatListComponent(props){
                                 } >
                                     
                                 </ListItemText>
+                                {
+                                    chat.recieverHasRead === false && ! userIsSender(chat) ? 
+                                    <ListItemIcon>
+                                        <NotificationImportant className={classes.unreadMessage}></NotificationImportant>
+                                    </ListItemIcon> : null
+                                }
                             </ListItem>
                             
                             </div>
