@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(5),
       },
       submit: {
-        marginTop: theme.spacing(10)
+        marginTop: theme.spacing(8)
       },
       errorText: {
         color: 'red',
