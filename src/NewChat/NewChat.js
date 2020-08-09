@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { FormControl, InputLabel, Input, Button, withStyles, CssBaseline, Typography, createChainedFunction } from '@material-ui/core';
+import { FormControl, InputLabel, Input, Button, CssBaseline, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -47,10 +47,12 @@ export default function NewChatComponent(props){
     const [message, setMessage] = useState('')
     const[error, setError] = useState(false)
 
+    const currentUser = firebase?.auth()?.currentUser
+
     useEffect(()=>{
-        if(!firebase.auth().currentUser)
+        if(!currentUser)
             history.push('/login');
-    }, [])
+    }, [history, currentUser])
 
 
     async function submitNewChat(e){

@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import ChatListComponent from '../ChatList/ChatList'
-import NewChatComponent from '../NewChat/NewChat'
+import ChatListComponent from './ChatList/ChatList'
+import NewChatComponent from './NewChat/NewChat'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import ChatViewComponent from "../viewchat/ChatView"
-import ChatTextBoxComponent from '../ChatTextBox/ChatTextBox'
+import ChatViewComponent from "./viewchat/ChatView"
+import ChatTextBoxComponent from './ChatTextBox/ChatTextBox'
 import Button from '@material-ui/core/Button';
-import { Container } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

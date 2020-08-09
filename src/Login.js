@@ -85,7 +85,7 @@ function LoginComponent(){
 
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
-            history.push('/dashboard')
+            history.push('/')
         }, err => {
             setError('Error Logging in. Please try again later')
             console.log(err)

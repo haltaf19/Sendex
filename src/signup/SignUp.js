@@ -98,7 +98,7 @@ function SignUpComponent(){
             };
             database.collection('users').doc(email).set(userObj)
             .then(() => {
-                history.push('/dashboard')
+                history.push('/')
             }, dbError => {
                 console.log(dbError)
                 setError(`Failed to Add user`)
