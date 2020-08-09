@@ -35,7 +35,7 @@ Run for development
 </p>
 
 ### RoadMap
-
+* Mobile-friendly UI
 * Integrating video chat
 * Group conversations
 
