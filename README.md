@@ -2,7 +2,7 @@
 
 ## About
 
-The project was built using React.js for the front-end and firebase for the back-end
+The project was built using React.js for the front-end and firebase for the back-end. 
 
 
 ### Stack
@@ -33,3 +33,11 @@ Run for development
 <p align="center">
   <img width="90%" src="resources/login.jpg">
 </p>
+
+### RoadMap
+
+* Integrating video chat
+* Group conversations
+
+
+
