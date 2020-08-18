@@ -35,6 +35,7 @@ Run for development
 </p>
 
 ### RoadMap
+* Use web sockets to scale application
 * Mobile-friendly UI
 * Integrating video chat
 * Group conversations
